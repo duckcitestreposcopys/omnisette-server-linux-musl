@@ -1,2 +1,2 @@
-[build]
+[target.i686-unknown-linux-musl]
 rustflags = ["-Ctarget-feature=-avx2,-sse,-sse2"]
