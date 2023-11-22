@@ -33,12 +33,10 @@ jobs:
           cp target/aarch64-unknown-linux-musl/release/omnisette-server target/omnisette-server-linux-aarch64-musl
 
       - name: Upload aarch64
-        uses: IsaacShelton/update-existing-release@v1.3.1
+        uses: actions/upload-artifact@v3.1.3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          release: "Build"
-          tag: "build"
-          files: target/omnisette-server-linux-aarch64-musl
+          name: omnisette-server-linux-aarch64-musl
+          path: target/omnisette-server-linux-aarch64-musl
 
       - name: Build for x86_64
         run: |
@@ -46,12 +44,10 @@ jobs:
           cp target/x86_64-unknown-linux-musl/release/omnisette-server target/omnisette-server-linux-x86_64-musl
 
       - name: Upload x86_64
-        uses: IsaacShelton/update-existing-release@v1.3.1
+        uses: actions/upload-artifact@v3.1.3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          release: "Build"
-          tag: "build"
-          files: target/omnisette-server-linux-x86_64-musl
+          name: omnisette-server-linux-aarch64-musl
+          path: target/omnisette-server-linux-x86_64-musl
 
       - name: Build for i686
         run: |
@@ -59,9 +55,7 @@ jobs:
           cp target/i686-unknown-linux-musl/release/omnisette-server target/omnisette-server-linux-i686-musl
 
       - name: Upload i686
-        uses: IsaacShelton/update-existing-release@v1.3.1
+        uses: actions/upload-artifact@v3.1.3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          release: "Build"
-          tag: "build"
-          files: target/omnisette-server-linux-i686-musl
+          name: omnisette-server-linux-aarch64-musl
+          path: target/omnisette-server-linux-i686-musl
