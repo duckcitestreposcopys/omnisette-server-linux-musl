@@ -19,7 +19,7 @@ jobs:
           profile: minimal
 
       - name: Install additional rust targets
-        run: rustup target add aarch64-unknown-linux-musl x86_64-unknown-linux-musl i686-unknown-linux-musl
+        run: rustup target add i686-unknown-linux-musl
 
       - name: Cache rust
         uses: Swatinem/rust-cache@v2
@@ -27,13 +27,27 @@ jobs:
       - name: Install cross
         run: cargo install cross
 
-      - name: Build for i686
+      - name: Build for i686 without SIMD
         run: |
           cross build --release --target i686-unknown-linux-musl
           cp target/i686-unknown-linux-musl/release/omnisette-server target/omnisette-server-linux-i686-musl
 
-      - name: Upload i686
+      - name: Upload i686 without SIMD
         uses: actions/upload-artifact@v3.1.3
         with:
-          name: omnisette-server-linux-aarch64-musl
+          name: omnisette-server-linux-aarch64-musl-no-simd
+          path: target/omnisette-server-linux-i686-musl
+
+      - name: Build with SIMD 
+        run: rm .cargo/config.toml
+
+      - name: Build for i686 with SIMD
+        run: |
+          cross build --release --target i686-unknown-linux-musl
+          cp target/i686-unknown-linux-musl/release/omnisette-server target/omnisette-server-linux-i686-musl
+
+      - name: Upload i686 with SIMD
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: omnisette-server-linux-aarch64-musl-simd
           path: target/omnisette-server-linux-i686-musl
